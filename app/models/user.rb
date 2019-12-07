@@ -1,7 +1,11 @@
 class User < ApplicationRecord
     has_many :reservation
     has_many :sell
+    
+    has_secure_password
+    validates :us, presence: true, uniqueness: true
+    validates :password,
+                length: { minimum: 6 },
+                if: -> { new_record? || !pass.nil? }
 
-    def create
-    end
 end
