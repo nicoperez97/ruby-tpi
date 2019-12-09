@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   post '/sesiones', to: 'authentication#login'
   get '/*a', to: 'application#not_found'
 
-  get 'productos', to: 
+  get 'productos', to: 'products#index'
   
   
   #resources :products, only: [:index, :show], as: :productos, path: "productos" do
-  #  resources :items, only: [:index, :create]
+  # resources :items, only: [:index, :create]
   #end
 
   #resources :reservations, except: :update, as: :reservas, path: "reservas"
