@@ -7,23 +7,28 @@ class ProductsController < ApplicationController
     cantmax = 25
     @filtro = params[:filter]
     
-    throw @filtro
+    #throw @filtro
     
     # http://localhost:3000/productos/?filter=all(aca va el parametro a buscar)
 
-    @product = case @filtro
-    when 'scarce'
-      Product.scarce
-    when 'all'      
-      Product.todos
-    else
-      Product.in_stock
-    end
+    @product =( case @filtro
+              when 'scarce'
+                Product.scarce
+              when 'all'      
+                Product.todos
+              else
+                Product.in_stock
+              end)
 
+    
 
-
-    render json: @products.limit(cantmax)
+    render json: @product#.limit(cantmax)
   end
+
+  def get_producto_by_codigo
+    @codigo = params[:codigo]
+
+    
 
   # GET /products/1
   def show
