@@ -1,4 +1,4 @@
 class Client < ApplicationRecord
-    has_many :reservation
-    has_many :sell
+    has_many :reservations
+    has_many :sells
 end

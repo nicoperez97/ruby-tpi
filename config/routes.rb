@@ -3,22 +3,18 @@ Rails.application.routes.draw do
   
   resources :users, param: :_username
   post '/sesiones', to: 'authentication#login'
-  get '/*a', to: 'application#not_found'
-
+  
   get 'productos', to: 'products#index'
   
   
-  #resources :products, only: [:index, :show], as: :productos, path: "productos" do
-  # resources :items, only: [:index, :create]
-  #end
-
-  #resources :reservations, except: :update, as: :reservas, path: "reservas"
   
-  #put 'reservas/:id/vender', to: 'reservations#sell'
   
-  #resources :sells, except: [:update, :destroy], as: :ventas, path: "ventas"
+  
+  #Siempre va abajo
+  get '/*a', to: 'application#not_found'
 
-  #get "/productos/:codigo", to: "user#get_product_by_cod(:codigo)"
+  
+
 
 
 

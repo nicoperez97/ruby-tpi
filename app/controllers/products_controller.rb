@@ -1,24 +1,28 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
-  before_action :authorize_request
+  #before_action :authorize_request
   # GET /products
   def index
-    @products = Product.all
     
     cantmax = 25
     @filtro = params[:filter]
-    case filtro
-    when 'in_stock'
-      @product = Product.in_stock(cantmax)
+    
+    throw @filtro
+    
+    # http://localhost:3000/productos/?filter=all(aca va el parametro a buscar)
+
+    @product = case @filtro
     when 'scarce'
-      @product = Product.scarce(cantmax)
+      Product.scarce
     when 'all'      
-      @product = Product.all(cantmax)
+      Product.todos
     else
-      @product = Product.in_stock(cantmax)
+      Product.in_stock
+    end
 
 
-    render json: @products
+
+    render json: @products.limit(cantmax)
   end
 
   # GET /products/1
@@ -31,7 +35,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product, status: :created, location: @product
+      render json: @product, status: :created
     else
       render json: @product.errors, status: :unprocessable_entity
     end

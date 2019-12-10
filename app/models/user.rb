@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_many :reservation
-    has_many :sell
+    has_many :reservations
+    has_many :sells
     
     has_secure_password
     validates :us, presence: true, uniqueness: true
