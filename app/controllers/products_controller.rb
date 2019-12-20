@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
   #before_action :authorize_request
   # GET /products
-  def index
+  def endpoint_productos
     
     cantmax = 25
     @filtro = params[:filter]
@@ -25,11 +25,12 @@ class ProductsController < ApplicationController
     render json: @product#.limit(cantmax)
   end
 
-  def get_producto_by_codigo
+  def endpoint_productos_codigo
     @codigo = params[:codigo]
+    @product = Product.find_cod(@codigo)
 
-    
-
+    render json: @product  
+  end
   # GET /products/1
   def show
     render json: @product

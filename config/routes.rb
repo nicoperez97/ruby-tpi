@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :users, param: :_username
   post '/sesiones', to: 'authentication#login'
   
-  get 'productos', to: 'products#index'
+  get 'productos', to: 'products#endpoint_productos'
   
-  get 'productos/:codigo' to: 'products#'
+  get 'productos/:codigo', to: 'products#endpoint_productos_codigo'
   
   
   
