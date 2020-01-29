@@ -47,16 +47,6 @@ class ProductsController < ApplicationController
   end
 
 
-  def endpoint_productos_codigo_insert_items
-    @codigo = params[:codigo]
-    @product = Product.find_by(codigo:  @codigo)
-    if (@product.nil?)
-      render :status => 404
-    else 
-         
-    end
-  end
-
   # GET /products/1
   def show
     render json: @product

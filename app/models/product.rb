@@ -24,5 +24,8 @@ class Product < ApplicationRecord
     def items_disponibles
         self.order(:id).select{|p|p.items.state == "disponible"}
     end
+    def existe(cod)
+        self.find_by(codigo: cod)
+    end
 end 
 

@@ -38,6 +38,25 @@ class ItemsController < ApplicationController
     @item.destroy
   end
 
+  def item_create_for_product
+    @arr = Array.new()
+    @codigo = params[:codigo]
+    @product = Product.find_by(codigo: @codigo)
+    if(@product.nil?)
+       render :status => 404
+    else
+       if((params[:cant].to_i) > 0)
+          params[:cant].to_i.times {
+          @item = Item.new(product_id: @product.id, estado: 'disponible')
+          @item.save
+          @arr.push(@item)
+          }
+       end
+       render json:@arr
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

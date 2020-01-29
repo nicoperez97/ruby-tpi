@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   
   get 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_items'
    
-  post 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_insert_items'
+  post 'productos/:codigo/items', to: 'items#item_create_for_product'
   
 
   
