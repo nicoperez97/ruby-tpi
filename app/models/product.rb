@@ -24,12 +24,5 @@ class Product < ApplicationRecord
     def items_disponibles
         self.order(:id).select{|p|p.items.state == "disponible"}
     end
+end 
 
-    def find_cod(cod)
-        if self.order(:id).select{|p|p.codigo = cod}
-            self.order(:id).select{|p|p.codigo = cod}
-        else
-            [404,{},["Not Found"]] 
-        end
-    end
-end

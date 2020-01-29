@@ -3,12 +3,20 @@ Rails.application.routes.draw do
   
   resources :users, param: :_username
   post '/sesiones', to: 'authentication#login'
+
+  post 'productos/create', to: 'products#create'
+
+  post 'items/create', to: 'items#create'
   
   get 'productos', to: 'products#endpoint_productos'
   
   get 'productos/:codigo', to: 'products#endpoint_productos_codigo'
   
+  get 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_items'
+   
+  post 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_insert_items'
   
+
   
   
   #Siempre va abajo

@@ -3,7 +3,7 @@ class AuthenticationController < ApplicationController
     before_action :set_user,only: :login
     # POST /auth/login
     def login
-      #@user = User.find_by_us(params[:us])
+      @user = User.find_by_us(params[:us])
       if @user && @user.authenticate(params[:password])
         token = JsonWebToken.encode(user_id: @user.id)
         time = Time.now + 30.minutes.to_i

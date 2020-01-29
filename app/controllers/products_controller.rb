@@ -27,10 +27,36 @@ class ProductsController < ApplicationController
 
   def endpoint_productos_codigo
     @codigo = params[:codigo]
-    @product = Product.find_cod(@codigo)
-
-    render json: @product  
+    @product = Product.find_by(codigo:  @codigo)
+    if (@product.nil?)
+      render :status => 404
+    else 
+      render json: @product
+    end
   end
+
+  def endpoint_productos_codigo_items
+    @codigo = params[:codigo]
+    @product = Product.find_by(codigo:  @codigo)
+    if (@product.nil?)
+      render :status => 404
+    else 
+      items_estado = @product.items.collect{|item| "id: #{item.id}, estado: #{item.estado}, montoU: #{@product.montoU}"}
+      render json: items_estado 
+    end
+  end
+
+
+  def endpoint_productos_codigo_insert_items
+    @codigo = params[:codigo]
+    @product = Product.find_by(codigo:  @codigo)
+    if (@product.nil?)
+      render :status => 404
+    else 
+         
+    end
+  end
+
   # GET /products/1
   def show
     render json: @product
