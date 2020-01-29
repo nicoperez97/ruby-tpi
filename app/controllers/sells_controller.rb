@@ -18,7 +18,7 @@ class SellsController < ApplicationController
     @sell = Sell.new(sell_params)
 
     if @sell.save
-      render json: @sell, status: :created, location: @sell
+      render json: @sell, status: :created
     else
       render json: @sell.errors, status: :unprocessable_entity
     end

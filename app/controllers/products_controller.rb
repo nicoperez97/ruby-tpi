@@ -4,7 +4,6 @@ class ProductsController < ApplicationController
   # GET /products
   def endpoint_productos
     
-    cantmax = 25
     @filtro = params[:filter]
     
     #throw @filtro
@@ -45,7 +44,6 @@ class ProductsController < ApplicationController
       render json: items_estado 
     end
   end
-
 
   # GET /products/1
   def show

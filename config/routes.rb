@@ -16,9 +16,12 @@ Rails.application.routes.draw do
    
   post 'productos/:codigo/items', to: 'items#item_create_for_product'
   
+  post '/reservas' , to: 'reservations#endpoint_post_reservas'
 
+  get '/reservas', to: 'reservations#endpoint_reservas'
   
-  
+  post '/cliente', to: 'clients#create'
+
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

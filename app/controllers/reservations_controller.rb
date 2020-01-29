@@ -38,6 +38,23 @@ class ReservationsController < ApplicationController
     @reservation.destroy
   end
 
+  def endpoint_reservas
+    @reservations = Reservation.all
+
+    render json: @reservations
+  end
+
+  def endpoint_post_reservas
+    @productos = params[:productos]
+    @cliente_id = params[:cliente_id]
+    @user_id = params[:user_id]
+    @reservation = Reservation.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
+    @productos.each do |producto, cantidad|
+      @reservation.add_items(producto,cantidad)
+    end 
+    render json: @reservation
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation

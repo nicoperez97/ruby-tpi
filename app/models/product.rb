@@ -14,7 +14,7 @@ class Product < ApplicationRecord
     end
 
     def self.scarce
-        self.order(:id).limit(25).select{|p| (p.items_disponibles.count()>0) and (p.items_disponibles.count()<5)}
+        self.order(:id).limit(25).select{|p| (p.items_disponibles.count()>0) and (p.items_disponibles.count()<6)}
     end        
 
     def self.todos
@@ -22,10 +22,15 @@ class Product < ApplicationRecord
     end    
 
     def items_disponibles
-        self.order(:id).select{|p|p.items.state == "disponible"}
+        self.items.select{|i|i.estado == "disponible"}
     end
     def existe(cod)
         self.find_by(codigo: cod)
-    end
+    end 
+    def devolver_items(cantidad)
+        if (self.items_disponibles.count() >= cantidad.to_i)
+            self.items.select{|item|item.estado == "disponible"}.first(cantidad.to_i)
+        end
+    end  
 end 
 
