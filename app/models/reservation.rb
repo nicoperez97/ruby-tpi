@@ -6,7 +6,13 @@ class Reservation < ApplicationRecord
   def add_items(producto,cantidad)
     @product = Product.find_by(codigo:producto)
     (@product.devolver_items(cantidad)).each{|item|
-      item.reservado
-      ReservationItem.new(reservation_id: self.id,item_id:item.id)}
+      item.reservado(self.id)
+      ReservationItem.create(reservation_id: self.id,item_id:item.id)}
+  end
+  def monto_total
+    @total=0
+    self.reservation_items.each{|reservation_item|
+      @total = @total + reservation_item.valor}
+    @total
   end
 end

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   post 'items/create', to: 'items#create'
   
+  get '/items', to: 'items#index'
+  
   get 'productos', to: 'products#endpoint_productos'
   
   get 'productos/:codigo', to: 'products#endpoint_productos_codigo'
@@ -16,11 +18,17 @@ Rails.application.routes.draw do
    
   post 'productos/:codigo/items', to: 'items#item_create_for_product'
   
-  post '/reservas' , to: 'reservations#endpoint_post_reservas'
+  get '/reservas' , to: 'reservations#endpoint_reservas'
 
-  get '/reservas', to: 'reservations#endpoint_reservas'
+  post '/reservas' , to: 'reservations#endpoint_post_reservas' #falta borrar la reserva cuando no se puede
+
+  get '/reservas/:id', to: 'reservations#endpoint_reservas_id' #falta compound document
   
   post '/cliente', to: 'clients#create'
+
+  get '/ventas', to: 'sells#index'
+
+  post '/ventas', to: 'sells#create'
 
   #Siempre va abajo
   get '/*a', to: 'application#not_found'

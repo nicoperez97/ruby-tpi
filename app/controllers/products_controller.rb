@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
     if (@product.nil?)
       render :status => 404
     else 
-      items_estado = @product.items.collect{|item| "id: #{item.id}, estado: #{item.estado}, montoU: #{@product.montoU}"}
+      items_estado = @product.items.collect{|item| {"id": "#{item.id}", "estado": "#{item.estado}", "montoU": "#{@product.montoU}"}}
       render json: items_estado 
     end
   end

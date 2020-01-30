@@ -19,6 +19,7 @@ class SellsController < ApplicationController
 
     if @sell.save
       render json: @sell, status: :created
+      
     else
       render json: @sell.errors, status: :unprocessable_entity
     end

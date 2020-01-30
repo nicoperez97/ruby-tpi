@@ -30,6 +30,7 @@ class Product < ApplicationRecord
     def devolver_items(cantidad)
         if (self.items_disponibles.count() >= cantidad.to_i)
             self.items.select{|item|item.estado == "disponible"}.first(cantidad.to_i)
+            
         end
     end  
 end 

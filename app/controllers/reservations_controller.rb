@@ -38,12 +38,23 @@ class ReservationsController < ApplicationController
     @reservation.destroy
   end
 
-  def endpoint_reservas
-    @reservations = Reservation.all
+  def endpoint_reservas_id
+    @id = params[:id]
+
+    @reservations = Reservation.find_by(id:@id)
 
     render json: @reservations
   end
+  
+  def endpoint_reservas
 
+    @reservations = Reservation.all.select{|reserva| !Sell.find_by(reservation_id:reserva.id)}
+    
+    @datos = @reservations.collect{|reserva| {"fecha de reserva": "#{reserva.fecha}","nombre o razon social del cliente": "#{(Client.find_by(id:reserva.client_id)).nombre}","Monto Total": "#{reserva.monto_total}"}}
+
+    render json: @datos
+  end
+  
   def endpoint_post_reservas
     @productos = params[:productos]
     @cliente_id = params[:cliente_id]
