@@ -42,8 +42,11 @@ class ReservationsController < ApplicationController
     @id = params[:id]
 
     @reservations = Reservation.find_by(id:@id)
-
-    render json: @reservations
+    if @reservations.nil?
+      render :status => 404
+    else
+      render json: @reservations
+    end
   end
   
   def endpoint_reservas
@@ -66,6 +69,17 @@ class ReservationsController < ApplicationController
     render json: @reservation
   end
 
+  def endpoint_vender
+    @id = params[:id]
+    @reservation = Reservation.find_by(id:@id)
+    if (!Sell.find_by(reservation_id:@reservation.id))
+      @sell = Sell.create(fecha:Time.now,client_id:@reservation.client_id,user_id:@reservation.user_id,reservation_id:@reservation.id)
+      @reservation.sell_items(@sell.id)
+      render json: @sell
+    else
+      render :status => 404
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation

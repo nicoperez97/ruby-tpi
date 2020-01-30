@@ -3,12 +3,6 @@ Rails.application.routes.draw do
   
   resources :users, param: :_username
   post '/sesiones', to: 'authentication#login'
-
-  post 'productos/create', to: 'products#create'
-
-  post 'items/create', to: 'items#create'
-  
-  get '/items', to: 'items#index'
   
   get 'productos', to: 'products#endpoint_productos'
   
@@ -23,13 +17,30 @@ Rails.application.routes.draw do
   post '/reservas' , to: 'reservations#endpoint_post_reservas' #falta borrar la reserva cuando no se puede
 
   get '/reservas/:id', to: 'reservations#endpoint_reservas_id' #falta compound document
+
+  get '/ventas', to: 'sells#endpoint_ventas'
+
+  get '/ventas/:id', to: 'sells#endpoint_ventas_id'#falta resolver lo del current_user
+
+  post '/ventas', to: 'sells#endpoint_post_ventas'#falta borrar la venta cuando no se puede
+
+  put '/reservas/:id/vender', to: 'reservations#endpoint_vender'
+
+  delete '/reservas/:id', to: 'reservations#endpoint_eliminar'#falta hacer
+
   
+  
+  get '/all_ventas', to: 'sells#index'
+
+  get '/all_reservas', to: 'reservations#index'
+
   post '/cliente', to: 'clients#create'
 
-  get '/ventas', to: 'sells#index'
+  post 'productos/create', to: 'products#create'
 
-  post '/ventas', to: 'sells#create'
-
+  post 'items/create', to: 'items#create'
+  
+  get '/items', to: 'items#index'
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

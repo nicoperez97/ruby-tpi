@@ -2,11 +2,19 @@ class Sell < ApplicationRecord
   belongs_to :client
   belongs_to :user
   belongs_to :reservation, optional:true
-  has_many :items
+  has_many :sell_items
+
+  def add_items(producto,cantidad)
+    @product = Product.find_by(codigo:producto)
+    (@product.devolver_items(cantidad)).each{|item|
+      item.vendido(self.id)
+      SellItem.create(sell_id: self.id,item_id:item.id)}
+  end
 
   def monto_total
     @total=0
-    self.items.each{|item|@total = @total + (Product.find_by(id:item.product_id)).montoU}
+    self.sell_items.each{|sell_item|
+      @total = @total + sell_item.valor}
     @total
   end
 end

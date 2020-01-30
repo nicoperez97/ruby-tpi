@@ -39,6 +39,37 @@ class SellsController < ApplicationController
     @sell.destroy
   end
 
+  def endpoint_ventas
+
+    @sells = Sell.all
+    
+    @datos = @sells.collect{|sell| {"fecha de venta": "#{sell.fecha}","nombre o razon social del cliente": "#{(Client.find_by(id:sell.client_id)).nombre}","Monto Total": "#{sell.monto_total}"}}
+
+    render json: @datos
+  
+  end
+
+  def endpoint_post_ventas
+    @productos = params[:productos]
+    @cliente_id = params[:cliente_id]
+    @user_id = params[:user_id]
+    @sell = Sell.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
+    @productos.each do |producto, cantidad|
+      @sell.add_items(producto,cantidad)
+    end 
+    render json: @sell
+  end
+
+  def endpoint_ventas_id
+    @id = params[:id]
+    @Sell = Sell.find_by(id:@id)
+    if @Sell.nil?
+      render :status => 404
+    else
+      render json:@Sell#User.find(current_user.id)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sell

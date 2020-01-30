@@ -9,10 +9,17 @@ class Reservation < ApplicationRecord
       item.reservado(self.id)
       ReservationItem.create(reservation_id: self.id,item_id:item.id)}
   end
+  
   def monto_total
     @total=0
     self.reservation_items.each{|reservation_item|
       @total = @total + reservation_item.valor}
     @total
+  end
+
+  def sell_items(sell_id)
+    self.reservation_items.each{|reservation_item|
+    item=Item.find_by(id:reservation_item.item_id)
+    item.vendido(sell_id)}
   end
 end

@@ -18,6 +18,7 @@ class Item < ApplicationRecord
   def vendido(sell_id)
     self.estado = "vendido"
     self.sell_id = sell_id
+    self.save
   end
   def valor
     self.product.montoU
