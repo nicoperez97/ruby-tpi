@@ -26,9 +26,11 @@ Rails.application.routes.draw do
 
   put '/reservas/:id/vender', to: 'reservations#endpoint_vender'
 
-  delete '/reservas/:id', to: 'reservations#endpoint_eliminar'#falta hacer
-
+  delete '/reservas/:id', to: 'reservations#endpoint_eliminar'
   
+  
+
+
   
   get '/all_ventas', to: 'sells#index'
 

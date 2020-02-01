@@ -33,9 +33,15 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # DELETE /reservations/1
-  def destroy
-    @reservation.destroy
+
+  def endpoint_eliminar
+    @id = params[:id]
+    @reservation=Reservation.find(@id)
+    if(!Sell.find_by(reservation_id:@reservation.id))
+      @reservation.cancelar
+      @reservation.destroy
+      render :status => 200
+    end
   end
 
   def endpoint_reservas_id
