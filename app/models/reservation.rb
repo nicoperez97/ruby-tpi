@@ -5,9 +5,14 @@ class Reservation < ApplicationRecord
 
   def add_items(producto,cantidad)
     @product = Product.find_by(codigo:producto)
-    (@product.devolver_items(cantidad)).each{|item|
-      item.reservado(self.id)
-      ReservationItem.create(reservation_id: self.id,item_id:item.id)}
+    if(@product.devolver_items(cantidad).nil?)
+      {"#{@product.codigo}": "cantidad de items insuficientes"}
+    else
+      (@product.devolver_items(cantidad)).each{|item|
+        item.reservado(self.id)
+        ReservationItem.create(reservation_id: self.id,item_id:item.id)}
+        nil
+    end
   end
   
   def monto_total
@@ -22,4 +27,10 @@ class Reservation < ApplicationRecord
     item=Item.find_by(id:reservation_item.item_id)
     item.vendido(sell_id)}
   end
+
+  def cancelar
+      self.reservation_items.each{|reservation_item|reservation_item.cancelar}
+      self.reservation_items.destroy_all
+  end
+
 end

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   
   get '/reservas' , to: 'reservations#endpoint_reservas'
 
-  post '/reservas' , to: 'reservations#endpoint_post_reservas' #falta borrar la reserva cuando no se puede
+  post '/reservas' , to: 'reservations#endpoint_post_reservas'
 
   get '/reservas/:id', to: 'reservations#endpoint_reservas_id' #falta compound document
 
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get '/ventas/:id', to: 'sells#endpoint_ventas_id'#falta resolver lo del current_user
 
-  post '/ventas', to: 'sells#endpoint_post_ventas'#falta borrar la venta cuando no se puede
+  post '/ventas', to: 'sells#endpoint_post_ventas'
 
   put '/reservas/:id/vender', to: 'reservations#endpoint_vender'
 
@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   post 'items/create', to: 'items#create'
   
   get '/items', to: 'items#index'
+
+  get '/revervas_items', to: 'reservation_items#index'
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

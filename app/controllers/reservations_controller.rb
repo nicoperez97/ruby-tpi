@@ -63,10 +63,19 @@ class ReservationsController < ApplicationController
     @cliente_id = params[:cliente_id]
     @user_id = params[:user_id]
     @reservation = Reservation.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
+    @detalle = {}
     @productos.each do |producto, cantidad|
-      @reservation.add_items(producto,cantidad)
-    end 
-    render json: @reservation
+      @var=(@reservation.add_items(producto,cantidad))
+      if !@var.nil?
+        @detalle.merge!(@var)
+      end
+    end
+    if @detalle.empty?
+      render json: @reservation
+    else
+      @reservation.cancelar
+      render json: @detalle
+    end
   end
 
   def endpoint_vender

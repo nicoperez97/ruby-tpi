@@ -5,4 +5,9 @@ class ReservationItem < ApplicationRecord
   def valor
     self.item.valor
   end
+  
+  def cancelar
+    self.item.disponible
+  end
+
 end

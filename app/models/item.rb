@@ -12,6 +12,9 @@ class Item < ApplicationRecord
 
   def disponible
     self.estado = "disponible"
+    if(self.reservation_id)
+      self.reservation_id = nil
+    end
     self.save
   end
 

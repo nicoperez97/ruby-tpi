@@ -6,9 +6,14 @@ class Sell < ApplicationRecord
 
   def add_items(producto,cantidad)
     @product = Product.find_by(codigo:producto)
-    (@product.devolver_items(cantidad)).each{|item|
-      item.vendido(self.id)
-      SellItem.create(sell_id: self.id,item_id:item.id)}
+    if(@product.devolver_items(cantidad).nil?)
+      {"#{@product.codigo}": "cantidad de items insuficientes"}
+    else
+      (@product.devolver_items(cantidad)).each{|item|
+        item.reservado(self.id)
+        SellItem.create(sell_id: self.id,item_id:item.id)}
+        nil
+    end
   end
 
   def monto_total
@@ -17,4 +22,8 @@ class Sell < ApplicationRecord
       @total = @total + sell_item.valor}
     @total
   end
+  def cancelar
+    self.sell_items.each{|sell_item|sell_item.cancelar}
+    self.sell_items.destroy_all
+end
 end

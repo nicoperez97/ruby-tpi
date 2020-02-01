@@ -54,10 +54,19 @@ class SellsController < ApplicationController
     @cliente_id = params[:cliente_id]
     @user_id = params[:user_id]
     @sell = Sell.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
+    @detalle = {}
     @productos.each do |producto, cantidad|
-      @sell.add_items(producto,cantidad)
-    end 
-    render json: @sell
+      @var=(@sell.add_items(producto,cantidad))
+      if !@var.nil?
+        @detalle.merge!(@var)
+      end
+    end
+    if @detalle.empty?
+      render json: @sell
+    else
+      @sell.cancelar
+      render json: @detalle
+    end
   end
 
   def endpoint_ventas_id
