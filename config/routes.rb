@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   post '/reservas' , to: 'reservations#endpoint_post_reservas'
 
-  get '/reservas/:id', to: 'reservations#endpoint_reservas_id' #falta compound document
+  get '/reservas/:id', to: 'reservations#endpoint_reservas_id'
 
   get '/ventas', to: 'sells#endpoint_ventas'
 
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   
   
 
-
+  get '/reservas_items/:id', to: 'reservations#endpoint_own_items'
   
   get '/all_ventas', to: 'sells#index'
 

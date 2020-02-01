@@ -33,6 +33,12 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def endpoint_own_items
+    @id = params[:id]
+    @reservation = Reservation.find(@id)
+    render json: @reservation, serializer:ReservationSerializer 
+  end
+
 
   def endpoint_eliminar
     @id = params[:id]
@@ -47,11 +53,11 @@ class ReservationsController < ApplicationController
   def endpoint_reservas_id
     @id = params[:id]
 
-    @reservations = Reservation.find_by(id:@id)
-    if @reservations.nil?
+    @reservation = Reservation.find_by(id:@id)
+    if @reservation.nil?
       render :status => 404
     else
-      render json: @reservations
+      render json: @reservation, serializer:ReservationSerializer
     end
   end
   

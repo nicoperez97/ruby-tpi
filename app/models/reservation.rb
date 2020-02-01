@@ -33,4 +33,9 @@ class Reservation < ApplicationRecord
       self.reservation_items.destroy_all
   end
 
+  def own_items
+    @items = {}
+    self.reservation_items.each{|ri|@items.merge!({"#{ri.item_id}": {"estado": "#{ri.item.estado}","product_id": "#{ri.item.product_id}","reservation_id": "#{ri.item.reservation_id}","sell_id": "#{ri.item.sell_id}","created_at": "#{ri.item.created_at}","updated_at": "#{ri.item.updated_at}"}})}
+    @items
+  end
 end

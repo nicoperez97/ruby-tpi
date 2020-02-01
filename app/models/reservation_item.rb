@@ -9,5 +9,4 @@ class ReservationItem < ApplicationRecord
   def cancelar
     self.item.disponible
   end
-
 end

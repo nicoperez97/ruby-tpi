@@ -75,7 +75,7 @@ class SellsController < ApplicationController
     if @Sell.nil?
       render :status => 404
     else
-      render json:@Sell#User.find(current_user.id)
+      render json:@Sell, serializer:SellSerializer
     end
   end
 
