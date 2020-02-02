@@ -1,6 +1,9 @@
 class AuthenticationController < ApplicationController
     before_action :authorize_request, except: :login
     before_action :set_user,only: :login
+    
+    #En el Header key = Authorization y value = el token generado (copiar y pegar)
+    
     # POST /auth/login
     def login
       @user = User.find_by_us(params[:us])
@@ -10,6 +13,7 @@ class AuthenticationController < ApplicationController
         render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
                        username: @user.us }, status: :ok
       else
+        puts "puto santiago"
         render json: { error: 'unauthorized' }, status: :unauthorized
       end
     end

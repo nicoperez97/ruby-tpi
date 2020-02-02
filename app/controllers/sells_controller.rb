@@ -1,6 +1,6 @@
 class SellsController < ApplicationController
   before_action :set_sell, only: [:show, :update, :destroy]
-
+  before_action :authorize_request
   # GET /sells
   def index
     @sells = Sell.all
@@ -52,7 +52,7 @@ class SellsController < ApplicationController
   def endpoint_post_ventas
     @productos = params[:productos]
     @cliente_id = params[:cliente_id]
-    @user_id = params[:user_id]
+    @user_id = @current_user.id
     @sell = Sell.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
     @detalle = {}
     @productos.each do |producto, cantidad|
@@ -72,10 +72,14 @@ class SellsController < ApplicationController
   def endpoint_ventas_id
     @id = params[:id]
     @Sell = Sell.find_by(id:@id)
-    if @Sell.nil?
-      render :status => 404
+    if(@current_user.id == @Sell.user_id)
+      if @Sell.nil?
+        render :status => 404
+      else
+        render json:@Sell, serializer:SellSerializer
+      end
     else
-      render json:@Sell, serializer:SellSerializer
+      render :status => 404
     end
   end
 

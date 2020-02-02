@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post 'usuarios', to: 'users#create'
   
   resources :users, param: :_username
+  
   post '/sesiones', to: 'authentication#login'
   
   get 'productos', to: 'products#endpoint_productos'
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
 
   get '/ventas', to: 'sells#endpoint_ventas'
 
-  get '/ventas/:id', to: 'sells#endpoint_ventas_id'#falta resolver lo del current_user
+  get '/ventas/:id', to: 'sells#endpoint_ventas_id'
 
   post '/ventas', to: 'sells#endpoint_post_ventas'
 
@@ -29,6 +30,11 @@ Rails.application.routes.draw do
   delete '/reservas/:id', to: 'reservations#endpoint_eliminar'
   
   
+
+
+
+
+  get '/users', to: 'users#index'
 
   get '/reservas_items/:id', to: 'reservations#endpoint_own_items'
   
@@ -45,6 +51,9 @@ Rails.application.routes.draw do
   get '/items', to: 'items#index'
 
   get '/revervas_items', to: 'reservation_items#index'
+ 
+ 
+ 
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

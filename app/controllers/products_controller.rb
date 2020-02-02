@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
-  #before_action :authorize_request
+  before_action :authorize_request
+  
+  
   # GET /products
   def endpoint_productos
     
@@ -21,7 +23,7 @@ class ProductsController < ApplicationController
 
     
 
-    render json: @product#.limit(cantmax)
+    render json: @product
   end
 
   def endpoint_productos_codigo
