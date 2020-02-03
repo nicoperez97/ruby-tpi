@@ -1,52 +1,11 @@
 class SellsController < ApplicationController
   before_action :set_sell, only: [:show, :update, :destroy]
   before_action :authorize_request
-  # GET /sells
-  def index
-    @sells = Sell.all
-
-    render json: @sells
-  end
-
-  # GET /sells/1
-  def show
-    render json: @sell
-  end
-
-  # POST /sells
-  def create
-    @sell = Sell.new(sell_params)
-
-    if @sell.save
-      render json: @sell, status: :created
-      
-    else
-      render json: @sell.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /sells/1
-  def update
-    if @sell.update(sell_params)
-      render json: @sell
-    else
-      render json: @sell.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /sells/1
-  def destroy
-    @sell.destroy
-  end
-
-  def endpoint_ventas
-
-    @sells = Sell.all
-    
-    @datos = @sells.collect{|sell| {"fecha de venta": "#{sell.fecha}","nombre o razon social del cliente": "#{(Client.find_by(id:sell.client_id)).nombre}","Monto Total": "#{sell.monto_total}"}}
-
-    render json: @datos
   
+  def endpoint_ventas
+    @sells = Sell.all
+    @datos = @sells.select{|sell|sell.user_id==@current_user.id}.collect{|sell| {"fecha de venta": "#{sell.fecha}","nombre o razon social del cliente": "#{(Client.find_by(id:sell.client_id)).nombre}","Monto Total": "#{sell.monto_total}"}}
+    render json: @datos
   end
 
   def endpoint_post_ventas
@@ -65,7 +24,7 @@ class SellsController < ApplicationController
       render json: @sell
     else
       @sell.cancelar
-      render json: @detalle
+      render json: @detalle, :status => 404
     end
   end
 

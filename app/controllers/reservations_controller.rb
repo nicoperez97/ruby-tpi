@@ -1,38 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :update, :destroy]
   before_action :authorize_request
-  # GET /reservations
-  def index
-    @reservations = Reservation.all
-
-    render json: @reservations
-  end
-
-  # GET /reservations/1
-  def show
-    render json: @reservation
-  end
-
-  # POST /reservations
-  def create
-    @reservation = Reservation.new(reservation_params)
-
-    if @reservation.save
-      render json: @reservation, status: :created, location: @reservation
-    else
-      render json: @reservation.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /reservations/1
-  def update
-    if @reservation.update(reservation_params)
-      render json: @reservation
-    else
-      render json: @reservation.errors, status: :unprocessable_entity
-    end
-  end
-
+ 
   def endpoint_own_items
     @id = params[:id]
     @reservation = Reservation.find(@id)
@@ -47,6 +16,8 @@ class ReservationsController < ApplicationController
       @reservation.cancelar
       @reservation.destroy
       render :status => 200
+    else
+      render :status => 404
     end
   end
 
@@ -73,7 +44,7 @@ class ReservationsController < ApplicationController
   def endpoint_post_reservas
     @productos = params[:productos]
     @cliente_id = params[:cliente_id]
-    @user_id = params[:user_id]
+    @user_id = @current_user.id
     @reservation = Reservation.create!(client_id:@cliente_id,user_id:@user_id, fecha: Time.now) 
     @detalle = {}
     @productos.each do |producto, cantidad|
@@ -86,7 +57,7 @@ class ReservationsController < ApplicationController
       render json: @reservation
     else
       @reservation.cancelar
-      render json: @detalle
+      render json: @detalle ,:status => 404
     end
   end
 

@@ -6,14 +6,13 @@ class AuthenticationController < ApplicationController
     
     # POST /auth/login
     def login
-      @user = User.find_by_us(params[:us])
-      if @user && @user.authenticate(params[:password])
+      @user = User.find_by_us(params[:u])
+      if @user && @user.authenticate(params[:p])
         token = JsonWebToken.encode(user_id: @user.id)
         time = Time.now + 30.minutes.to_i
         render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
                        username: @user.us }, status: :ok
       else
-        puts "puto santiago"
         render json: { error: 'unauthorized' }, status: :unauthorized
       end
     end
@@ -21,10 +20,10 @@ class AuthenticationController < ApplicationController
     private
   
     def login_params
-      params.permit(:us, :password)
+      params.permit(:u, :p)
     end
 
     def set_user
-        @user = User.find_by(us: params[:us])
+        @user = User.find_by(us: params[:u])
     end
   end

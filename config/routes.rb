@@ -5,55 +5,39 @@ Rails.application.routes.draw do
   
   post '/sesiones', to: 'authentication#login'
   
-  get 'productos', to: 'products#endpoint_productos'
+  #Enpoints de Productos
   
-  get 'productos/:codigo', to: 'products#endpoint_productos_codigo'
+  get 'productos', to: 'products#endpoint_productos' #Mostrar todos los productos 
   
-  get 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_items'
+  get 'productos/:codigo', to: 'products#endpoint_productos_codigo' #Mostrar un producto determinad
+  
+  get 'productos/:codigo/items', to: 'products#endpoint_productos_codigo_items' #Mostrar los items de un producto determinado
    
-  post 'productos/:codigo/items', to: 'items#item_create_for_product'
+  post 'productos/:codigo/items', to: 'items#item_create_for_product' #Agregarle items a un producto determina mediante la variable "cantidad"
   
-  get '/reservas' , to: 'reservations#endpoint_reservas'
-
-  post '/reservas' , to: 'reservations#endpoint_post_reservas'
-
-  get '/reservas/:id', to: 'reservations#endpoint_reservas_id'
-
-  get '/ventas', to: 'sells#endpoint_ventas'
-
-  get '/ventas/:id', to: 'sells#endpoint_ventas_id'
-
-  post '/ventas', to: 'sells#endpoint_post_ventas'
-
-  put '/reservas/:id/vender', to: 'reservations#endpoint_vender'
-
-  delete '/reservas/:id', to: 'reservations#endpoint_eliminar'
+  #Enpoints de Reservas
   
+  get '/reservas' , to: 'reservations#endpoint_reservas' #Mostrar todas las reservas
+
+  post '/reservas' , to: 'reservations#endpoint_post_reservas'  #Crear una reserva
+
+  get '/reservas/:id', to: 'reservations#endpoint_reservas_id' #Mostrar una reserva determinada
+
+  put '/reservas/:id/vender', to: 'reservations#endpoint_vender' #Pasar una reserva determinada a venta
+
+  delete '/reservas/:id', to: 'reservations#endpoint_eliminar' #Eliminar una reserva determinada
+  
+  #Endpoint de Ventas
+  
+  get '/ventas', to: 'sells#endpoint_ventas' #Mostrar todas las ventas del usuario loggeado
+
+  get '/ventas/:id', to: 'sells#endpoint_ventas_id' #Mostrar una venta determinada del usuario loggeado
+
+  post '/ventas', to: 'sells#endpoint_post_ventas' #Crear una venta
+
   
 
 
-
-
-  get '/users', to: 'users#index'
-
-  get '/reservas_items/:id', to: 'reservations#endpoint_own_items'
-  
-  get '/all_ventas', to: 'sells#index'
-
-  get '/all_reservas', to: 'reservations#index'
-
-  post '/cliente', to: 'clients#create'
-
-  post 'productos/create', to: 'products#create'
-
-  post 'items/create', to: 'items#create'
-  
-  get '/items', to: 'items#index'
-
-  get '/revervas_items', to: 'reservation_items#index'
- 
- 
- 
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 
