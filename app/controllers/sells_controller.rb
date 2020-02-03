@@ -2,6 +2,7 @@ class SellsController < ApplicationController
   before_action :set_sell, only: [:show, :update, :destroy]
   before_action :authorize_request
   
+
   def endpoint_ventas
     @sells = Sell.all
     @datos = @sells.select{|sell|sell.user_id==@current_user.id}.collect{|sell| {"fecha de venta": "#{sell.fecha}","nombre o razon social del cliente": "#{(Client.find_by(id:sell.client_id)).nombre}","Monto Total": "#{sell.monto_total}"}}
@@ -24,6 +25,7 @@ class SellsController < ApplicationController
       render json: @sell
     else
       @sell.cancelar
+      @sell.destroy
       render json: @detalle, :status => 404
     end
   end

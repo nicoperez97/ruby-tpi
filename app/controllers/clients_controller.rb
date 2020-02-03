@@ -14,15 +14,16 @@ class ClientsController < ApplicationController
   end
 
   # POST /clients
-  def create
-    @client = Client.new(client_params)
 
+  def create
+    @client = Client.new(email:params[:email],nombre:params[:nombre],cuil:params[:cuil],condicion:params[:condicion],tel:params[:condicion])
     if @client.save
       render json: @client, status: :created
     else
       render json: @client.errors, status: :unprocessable_entity
     end
   end
+
 
   # PATCH/PUT /clients/1
   def update

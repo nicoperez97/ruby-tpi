@@ -37,7 +37,6 @@ Rails.application.routes.draw do
 
   
 
-
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

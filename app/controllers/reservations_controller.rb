@@ -57,6 +57,7 @@ class ReservationsController < ApplicationController
       render json: @reservation
     else
       @reservation.cancelar
+      @reservation.destroy
       render json: @detalle ,:status => 404
     end
   end

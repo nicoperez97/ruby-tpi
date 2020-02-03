@@ -3,7 +3,7 @@ class Client < ApplicationRecord
     has_many :sells
 
     validates :email,
-    #format: { with: URI::MailTo::EMAIL_REGEXP },
+    format: { with: URI::MailTo::EMAIL_REGEXP },
     presence: true
 
     validates :cuil, 
