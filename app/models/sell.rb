@@ -25,5 +25,11 @@ class Sell < ApplicationRecord
   def cancelar
     self.sell_items.each{|sell_item|sell_item.cancelar}
     self.sell_items.destroy_all
-end
+  end
+  def add_items_reservation(reservation_items)
+    reservation_items.each{ |reservation_item|
+      item=Item.find_by(id:reservation_item.item_id)
+      item.vendido(self.id)
+      SellItem.create(sell_id:self.id,item_id:(reservation_item.item_id))}
+  end
 end

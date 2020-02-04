@@ -23,9 +23,8 @@ class Reservation < ApplicationRecord
   end
 
   def sell_items(sell_id)
-    self.reservation_items.each{|reservation_item|
-    item=Item.find_by(id:reservation_item.item_id)
-    item.vendido(sell_id)}
+    @sell = Sell.find(sell_id)
+    @sell.add_items_reservation(self.reservation_items)
   end
 
   def cancelar
