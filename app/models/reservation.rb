@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
     else
       (@product.devolver_items(cantidad)).each{|item|
         item.reservado(self.id)
-        ReservationItem.create(reservation_id: self.id,item_id:item.id)}
+        ReservationItem.create(reservation_id: self.id,item_id:item.id,item_precio:item.valor)}
         nil
     end
   end

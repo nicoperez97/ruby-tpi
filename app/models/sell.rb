@@ -11,7 +11,7 @@ class Sell < ApplicationRecord
     else
       (@product.devolver_items(cantidad)).each{|item|
         item.reservado(self.id)
-        SellItem.create(sell_id: self.id,item_id:item.id)}
+        SellItem.create(sell_id: self.id,item_id:item.id,item_precio:item.valor)}
         nil
     end
   end
