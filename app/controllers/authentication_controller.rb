@@ -1,5 +1,3 @@
-require 'jwt'
-
 class AuthenticationController < ApplicationController
     before_action :authorize_request, except: :login
     before_action :set_user,only: :login
