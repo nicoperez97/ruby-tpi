@@ -3,6 +3,16 @@ class ProductsController < ApplicationController
   before_action :authorize_request
   
   
+  def create
+    @product = Product.new(product_params)
+
+    if @product.save
+      render json: @product, status: :created
+    else
+      render json: @product.errors, status: :unprocessable_entity
+    end
+  end
+  
   # GET /products
   def endpoint_productos
     

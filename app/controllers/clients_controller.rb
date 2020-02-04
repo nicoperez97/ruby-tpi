@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :update, :destroy]
+  before_action :authorize_request
 
   # GET /clients
   def index
@@ -18,7 +19,6 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      @client.add_phones(params[:phone])
       render json: @client, serilizer:ClientSerializer,status: :created
     else
       render json: @client.errors, status: :unprocessable_entity
@@ -38,6 +38,15 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   def destroy
     @client.destroy
+  end
+
+  def endpoint_add_phone
+    if @client = Client.find_by(cuil:params[:cuil])
+      @client.add_phones(params[:phone])
+      render json: @client, serilizer:ClientSerializer
+    else
+      render :status => 404
+    end
   end
 
   private

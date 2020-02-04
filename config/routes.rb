@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   post '/sesiones', to: 'authentication#login'
   
   #Enpoints de Productos
-  
+  post 'productos', to: 'products#create' #Crea un producto
+
   get 'productos', to: 'products#endpoint_productos' #Mostrar todos los productos 
   
   get 'productos/:codigo', to: 'products#endpoint_productos_codigo' #Mostrar un producto determinad
@@ -35,9 +36,14 @@ Rails.application.routes.draw do
 
   post '/ventas', to: 'sells#endpoint_post_ventas' #Crear una venta
 
+  #Endpoint de Cliente
+
+  post '/cliente/:cuil/add_phone', to: 'clients#endpoint_add_phone' #Agrega un numero a un cliente determinado
   
-  post '/cliente', to: 'clients#create'
-  get '/cliente', to: 'clients#index'
+  post '/cliente', to: 'clients#create' #Crea un cliente
+  
+  get '/cliente', to: 'clients#index' #Muestra todos los clientes
+  
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

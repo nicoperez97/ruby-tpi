@@ -9,6 +9,9 @@ class Product < ApplicationRecord
     #select de ruby, en vez de where
     #and, no es and de la base de datos
     
+    validates :codigo,
+    uniqueness: true
+
     def self.in_stock
         self.order(:id).limit(25).select {|p| p.items_disponibles.count()>0}
     end
