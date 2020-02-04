@@ -1,6 +1,7 @@
 class Client < ApplicationRecord
     has_many :reservations
     has_many :sells
+    has_many :phones
 
     validates :email,
     format: { with: URI::MailTo::EMAIL_REGEXP },
@@ -16,8 +17,8 @@ class Client < ApplicationRecord
     validates :nombre,
     format: { with: /\A[a-zA-Z.']+(?:\s[a-zA-Z.']+)*\s?\z/, message: "must contain only letters"}
     
-    
-    #validates :tel,
-    #format: { with: /({0-9})*/ ,
-    #message: "must contain only numbers"}
+    def add_phones(num)
+        @phone=Phone.create!(number:num,client_id:self.id)
+        self
+    end
 end

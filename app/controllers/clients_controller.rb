@@ -5,12 +5,12 @@ class ClientsController < ApplicationController
   def index
     @clients = Client.all
 
-    render json: @clients
+    render json: @clients , each_serializer:ClientSerializer
   end
 
   # GET /clients/1
   def show
-    render json: @client
+    render json: @client.phones
   end
 
   # POST /clients
@@ -18,7 +18,8 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      render json: @client, status: :created
+      @client.add_phones(params[:phone])
+      render json: @client, serilizer:ClientSerializer,status: :created
     else
       render json: @client.errors, status: :unprocessable_entity
     end
@@ -47,6 +48,6 @@ class ClientsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_params
-      params.require(:client).permit(:cuil, :nombre, :condicion, :tel, :email)
+      params.require(:client).permit(:cuil, :nombre, :condicion, :email)
     end
 end

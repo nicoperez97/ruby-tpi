@@ -36,7 +36,8 @@ Rails.application.routes.draw do
   post '/ventas', to: 'sells#endpoint_post_ventas' #Crear una venta
 
   
-
+  post '/cliente', to: 'clients#create'
+  get '/cliente', to: 'clients#index'
   #Siempre va abajo
   get '/*a', to: 'application#not_found'
 

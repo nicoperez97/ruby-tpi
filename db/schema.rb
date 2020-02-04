@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200203224634) do
+ActiveRecord::Schema.define(version: 20200204180436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,12 @@ ActiveRecord::Schema.define(version: 20200203224634) do
   create_table "clients", force: :cascade do |t|
     t.string "nombre"
     t.integer "condicion"
-    t.string "tel" #hacer una clase tel, y que sea una referencia
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
     t.bigint "cuil"
+    t.bigint "phone_id"
+    t.index ["phone_id"], name: "index_clients_on_phone_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -35,6 +36,14 @@ ActiveRecord::Schema.define(version: 20200203224634) do
     t.index ["product_id"], name: "index_items_on_product_id"
     t.index ["reservation_id"], name: "index_items_on_reservation_id"
     t.index ["sell_id"], name: "index_items_on_sell_id"
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.bigint "number"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_phones_on_client_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -93,9 +102,11 @@ ActiveRecord::Schema.define(version: 20200203224634) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "clients", "phones"
   add_foreign_key "items", "products"
   add_foreign_key "items", "reservations"
   add_foreign_key "items", "sells"
+  add_foreign_key "phones", "clients"
   add_foreign_key "reservation_items", "items"
   add_foreign_key "reservation_items", "reservations"
   add_foreign_key "reservations", "clients"
