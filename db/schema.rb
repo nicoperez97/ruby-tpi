@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20200203224634) do
   create_table "clients", force: :cascade do |t|
     t.string "nombre"
     t.integer "condicion"
-    t.string "tel"
+    t.string "tel" #hacer una clase tel, y que sea una referencia
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"

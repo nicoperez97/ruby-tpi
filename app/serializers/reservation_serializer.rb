@@ -3,9 +3,6 @@ class ReservationSerializer < ActiveModel::Serializer
 
 	def venta_asociada
 		@sell = Sell.find_by(reservation_id: object.id)
-		if @sell
-			@sell
-		end
 	end
 
 	def items
@@ -15,10 +12,7 @@ class ReservationSerializer < ActiveModel::Serializer
 	end
 	
 	def monto_total
-		@total=0
-		object.reservation_items.each{|reservation_item|
-		  @total = @total + reservation_item.valor}
-		@total
+		object.monto_total
 	  end
 
 end

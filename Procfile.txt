@@ -1,0 +1,3 @@
+web: bundle exec puma -C config/puma.rb
+
+#https://aqueous-lowlands-25904.herokuapp.com/

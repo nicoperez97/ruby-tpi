@@ -8,9 +8,6 @@ class SellSerializer < ActiveModel::Serializer
 	end
 
 	def monto_total
-		@total=0
-		object.sell_items.each{|sell_item|
-		  @total = @total + sell_item.valor}
-		@total
+		object.monto_total
 	  end
 end

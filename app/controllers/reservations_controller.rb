@@ -66,7 +66,7 @@ class ReservationsController < ApplicationController
     @id = params[:id]
     @reservation = Reservation.find_by(id:@id)
     if (!Sell.find_by(reservation_id:@reservation.id))
-      @sell = Sell.create(fecha:Time.now,client_id:@reservation.client_id,user_id:@reservation.user_id,reservation_id:@reservation.id)
+      @sell = Sell.create(fecha:Time.now,client_id:@reservation.client_id,user_id:@current_user.id,reservation_id:@reservation.id)
       @reservation.sell_items(@sell.id)
       render json: @sell
     else
