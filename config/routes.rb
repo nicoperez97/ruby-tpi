@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   post '/ventas', to: 'sells#endpoint_post_ventas' #Crear una venta
 
+  delete '/ventas/:id', to: 'sells#endpoint_eliminar' #Eliminar una venta determinada si la hizo le usuario loggeado
+
   #Endpoint de Cliente
 
   post '/cliente/:cuil/add_phone', to: 'clients#endpoint_add_phone' #Agrega un numero a un cliente determinado

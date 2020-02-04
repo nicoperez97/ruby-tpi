@@ -30,6 +30,6 @@ class Sell < ApplicationRecord
     reservation_items.each{ |reservation_item|
       item=Item.find_by(id:reservation_item.item_id)
       item.vendido(self.id)
-      SellItem.create(sell_id:self.id,item_id:(reservation_item.item_id))}
+      SellItem.create(sell_id:self.id,item_id:(reservation_item.item_id),item_precio:item.valor)}
   end
 end

@@ -15,6 +15,9 @@ class Item < ApplicationRecord
     if(self.reservation_id)
       self.reservation_id = nil
     end
+    if(self.sell_id)
+      self.sell_id = nil
+    end
     self.save
   end
 

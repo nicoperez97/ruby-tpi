@@ -44,6 +44,17 @@ class SellsController < ApplicationController
     end
   end
 
+  def endpoint_eliminar
+    @id = params[:id]
+    @sell=Sell.find(@id)
+    if(@current_user.id == @sell.user_id)
+      @sell.cancelar
+      @sell.destroy
+      render :status => 200
+    else
+      render :status => 404
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sell

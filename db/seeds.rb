@@ -6,6 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Product.create!(codigo:1,descripcion:"Primer producto",detalle:"detaller del producto",montoU:10)
-@client=Client.create!(nombre:"Nicolas",condicion:5,email:"nikop.1997.np@gmail.com",cuil:20404588215)
-@client.add_phones(4243789)
+
