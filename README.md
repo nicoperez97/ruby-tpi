@@ -1,6 +1,8 @@
 # README
 TPI Ruby 2019
 
+Nicolas Perez Ferdman
+
 Heroku link:
     https://aqueous-lowlands-25904.herokuapp.com/
 
