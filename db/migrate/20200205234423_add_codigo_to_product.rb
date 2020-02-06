@@ -1,0 +1,5 @@
+class AddCodigoToProduct < ActiveRecord::Migration[5.1]
+  def change
+    add_column :products, :codigo, :string
+  end
+end

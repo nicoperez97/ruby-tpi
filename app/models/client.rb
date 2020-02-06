@@ -3,6 +3,10 @@ class Client < ApplicationRecord
     has_many :sells
     has_many :phones
 
+    validates :condicion,
+    numericality: { less_than_or_equal_to: 14,  only_integer: true },
+    presence: true
+
     validates :email,
     format: { with: URI::MailTo::EMAIL_REGEXP },
     presence: true

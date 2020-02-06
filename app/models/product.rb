@@ -1,17 +1,14 @@
 class Product < ApplicationRecord
     has_many :items
 
-    #def get_product_by_cod(cod)
-    #    return (Product.all.map {|p| p.codigo = cod}.uniq)
-    #end
-
-
     #select de ruby, en vez de where
     #and, no es and de la base de datos
     
-    validates :codigo,
-    uniqueness: true
+    validates :codigo, format: { with: /\A(?=(?:.*\d){6})(?=(?:.*[a-zA-Z]){3})^[a-zA-Z\d]*$\z/ , message: "must be contain 3 letters and 6 digits"}, length: { is: 9 },presence:true,uniqueness:true
+    validates :descripcion, length: { maximum: 200 }
 
+    validates_presence_of :detalle, :descripcion, :montoU
+    
     def self.in_stock
         self.order(:id).limit(25).select {|p| p.items_disponibles.count()>0}
     end
